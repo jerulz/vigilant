@@ -8,15 +8,15 @@ export class MoviesService {
   private readonly logger = new Logger(MoviesService.name);
 
   public async getMovies(folderPath: string): Promise<Movie[]> {
-    var files: string[] = [];
+    let files: string[] = [];
 
-    var filesInFolder = await fs.readdir(folderPath);
+    let filesInFolder = await fs.readdir(folderPath);
 
     filesInFolder.sort();
 
-    for (var file of filesInFolder) {
-      var filePath = path.join(folderPath, file);
-      var stats = await fs.stat(filePath);
+    for (let file of filesInFolder) {
+      let filePath = path.join(folderPath, file);
+      let stats = await fs.stat(filePath);
 
       if (stats.isFile()) {
         files.push(filePath);
@@ -27,9 +27,9 @@ export class MoviesService {
   }
 
   private async toMovieObject(files: string[]): Promise<Movie[]> {
-    var movieObjects: Movie[] = [];
+    let movieObjects: Movie[] = [];
 
-    for (var file of files) {
+    for (let file of files) {
       movieObjects.push(await this.formatMovie(file));
     }
 
@@ -38,16 +38,16 @@ export class MoviesService {
   }
 
   private async formatMovie(file: string): Promise<Movie> {
-    var fileParts = file.split('\\');
-    var title = fileParts[6].trim();
-    var type = fileParts[5];
-    var yearMatch = file.match(/\d{4}/);
+    let fileParts = file.split('\\');
+    let title = fileParts[6].trim();
+    let type = fileParts[5];
+    let yearMatch = file.match(/\d{4}/);
 
     let year = yearMatch ? parseInt(yearMatch[0]) : null;
     year = this.isBetween1950And2050(year) ? year : null;
 
-    var index = file.lastIndexOf('.');
-    var format = file.substring(index + 1);
+    let index = file.lastIndexOf('.');
+    let format = file.substring(index + 1);
 
     this.logger.debug(`Formatting movie: ${title}`);
 

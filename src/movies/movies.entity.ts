@@ -31,7 +31,7 @@ export class Movie {
       return this.releaseYear;
     }
   
-    getformat(): string {
+    getFormat(): string {
       return this.format;
     }
   
@@ -48,7 +48,7 @@ export class Movie {
       this.releaseYear = releaseYear;
     }
   
-    setformat(format: string): void {
+    setFormat(format: string): void {
       this.format = format;
     }
   }

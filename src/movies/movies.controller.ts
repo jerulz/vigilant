@@ -3,7 +3,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { Movie } from './movies.entity';
 
 @Controller()
-export class AppController {
+export class MoviesController {
   constructor(private readonly appService: MoviesService) {}
 
   @Get('movies/:path')

@@ -14,9 +14,16 @@ export class MoviesService {
     const folderPath = process.env.MOVIES_PATH;
     this.logger.log(`Searching for movies in ${folderPath}`);
 
-    let filesInFolder = (await fs.readdir(folderPath))
-      .filter(file => file.toLowerCase()
-      .includes(name.toLowerCase()));
+    let filesInFolder: string[];
+
+    if (name) {
+      filesInFolder = (await fs.readdir(folderPath))
+        .filter(file => file.toLowerCase()
+        .includes(name.toLowerCase()));
+    }
+    else{
+      filesInFolder = await fs.readdir(folderPath);
+    }
 
     filesInFolder.sort();
 

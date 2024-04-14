@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { Movie } from './movies.entity';
@@ -12,6 +12,9 @@ export class MoviesService {
     let files: string[] = [];
 
     const folderPath = process.env.MOVIES_PATH;
+    if(!folderPath){
+      throw new NotFoundException(`No folder path found.`);
+    }
     this.logger.log(`Searching for movies in ${folderPath}`);
 
     let filesInFolder: string[];

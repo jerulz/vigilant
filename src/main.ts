@@ -6,18 +6,18 @@ import { AppModule } from './app.module';
 declare var module: any;
 
 async function bootstrap() {
-  var app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule);
 
   config();
 
-  var swaggerConfig = new DocumentBuilder()
+  const swaggerConfig = new DocumentBuilder()
     .setTitle('Vigilant')
     .setDescription('Your API description')
     .setVersion('0.1')
     .addTag('Vigilant')
     .build();
 
-  var document = SwaggerModule.createDocument(app, swaggerConfig);
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);

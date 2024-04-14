@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { config } from 'dotenv';
 import { AppModule } from './app.module';
 
 declare var module: any;
@@ -7,14 +8,16 @@ declare var module: any;
 async function bootstrap() {
   var app = await NestFactory.create(AppModule);
 
-  var config = new DocumentBuilder()
+  config();
+
+  var swaggerConfig = new DocumentBuilder()
     .setTitle('Vigilant')
     .setDescription('Your API description')
     .setVersion('0.1')
     .addTag('Vigilant')
     .build();
 
-  var document = SwaggerModule.createDocument(app, config);
+  var document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);

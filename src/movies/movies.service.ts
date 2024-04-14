@@ -7,10 +7,16 @@ import { Movie } from './movies.entity';
 export class MoviesService {
   private readonly logger = new Logger(MoviesService.name);
 
-  public async getMovies(folderPath: string): Promise<Movie[]> {
+
+  public async getMovies(name?: string): Promise<Movie[]> {
     let files: string[] = [];
 
-    let filesInFolder = await fs.readdir(folderPath);
+    const folderPath = process.env.MOVIES_PATH;
+    this.logger.log(`Searching for movies in ${folderPath}`);
+
+    let filesInFolder = (await fs.readdir(folderPath))
+      .filter(file => file.toLowerCase()
+      .includes(name.toLowerCase()));
 
     filesInFolder.sort();
 

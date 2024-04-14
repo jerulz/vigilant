@@ -1,13 +1,13 @@
 import { MoviesService } from './movies.service';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from "@nestjs/common";
 import { Movie } from './movies.entity';
 
-@Controller()
+@Controller('movies')
 export class MoviesController {
-  constructor(private readonly appService: MoviesService) {}
+  constructor(private readonly moviesService: MoviesService) {}
 
-  @Get('movies/:path')
-  async getFiles(@Param('path') path: string): Promise<Movie[]> {
-    return await this.appService.getMovies(path);
+  @Get()
+  async getMovies(@Query('name') name?: string): Promise<Movie[]> {
+    return await this.moviesService.getMovies(name);
   }
 }

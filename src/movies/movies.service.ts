@@ -7,7 +7,6 @@ import { Movie } from './movies.entity';
 export class MoviesService {
   private readonly logger = new Logger(MoviesService.name);
 
-
   public async getMovies(name?: string): Promise<Movie[]> {
     let files: string[] = [];
 
@@ -57,7 +56,7 @@ export class MoviesService {
     let fileParts = file.split('\\');
     let title = fileParts[6].trim();
     let type = fileParts[5];
-      let yearMatch = file.match(/\d{4}/);
+    let yearMatch = file.match(/\d{4}/);
 
     let year = yearMatch ? parseInt(yearMatch[0]) : null;
     year = this.isBetween1950And2050(year) ? year : null;
